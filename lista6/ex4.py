@@ -43,7 +43,7 @@ def number_of_islands(matrix):
 
     ilha_min.sort()
     ilha_max.sort()
-    return ilha_min, ilha_min[len(ilha_min)//2], ilha_max,ilha_max[len(ilha_max)//2],ilhas
+    return ilha_min, ilha_min[len(ilha_min)//2], ilha_max,ilha_max[len(ilha_max)//2]
 
 if __name__ == "__main__":
     # Testando com a matriz

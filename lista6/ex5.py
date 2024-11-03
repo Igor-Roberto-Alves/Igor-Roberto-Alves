@@ -53,26 +53,15 @@ def find_lake(matrix):
     return lakes #water carregará apenas os lagos que a matriz tiver, então se estiver vazia não há lagos
 
 if __name__ == "__main__":
-    # Testando com a matriz
-    matriz = [
-        ['1', '1', '1', '1', '1'],
-        ['1', '0', '0', '0', '1'],
-        ['1', '1', '0', '1', '1'],
-        ['0', '1', '0', '0', '1'],
-        ['1', '1', '1', '1', '1'],
-        ['1', '0', '1', '1', '1'],
-        ['1', '0', '1', '0', '1'],
-        ['1', '1', '1', '1', '1']
-    ]
-
-    matri = [
+    matrix = [
     ['1', '1', '1', '1', '1'],
     ['1', '1', '0', '1', '1'],
     ['1', '1', '1', '1', '0'],
     ['1', '1', '1', '1', '1'],
     ['1', '1', '1', '1', '1'],
     ['1', '0', '0', '0', '0']
-]
+    ]
 
-lakes = find_lake(matri)
-print(lakes)
+    # Chamando a função para encontrar os lagos
+    lakes = find_lake(matrix)
+    print(lakes)
