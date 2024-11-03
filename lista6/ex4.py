@@ -43,15 +43,16 @@ def number_of_islands(matrix):
 
     ilha_min.sort()
     ilha_max.sort()
-    return ilha_min, ilha_min[len(ilha_min)//2], ilha_max,ilha_max[len(ilha_max)//2]
+    return ilha_min, ilha_min[len(ilha_min)//2], ilha_max,ilha_max[len(ilha_max)//2],ilhas
 
-# Testando com a matriz
-matriz = [
-    ['1', '1', '1', '0', '0'],
-    ['0', '1', '0', '0', '1'],
-    ['1', '0', '0', '1', '1'],
-    ['0', '0', '0', '0', '0'],
-    ['1', '0', '1', '1', '0']
-]
+if __name__ == "__main__":
+    # Testando com a matriz
+    matriz = [
+        ['1', '1', '1', '0', '0'],
+        ['0', '1', '0', '0', '1'],
+        ['1', '0', '0', '1', '1'],
+        ['0', '0', '0', '0', '0'],
+        ['1', '0', '1', '1', '0']
+    ]
 
-print(number_of_islands(matriz))
+    print(number_of_islands(matriz))

@@ -32,24 +32,47 @@ def find_lake(matrix):
                 lista_ilha = [v for v in ilha]
                 lista_ilha.sort()
                 water.append(lista_ilha)
-                
+
+    
+    lakes = []            
     for conjunto in water:
-        for zero in conjunto: #não terá zeros nas bordas
-            if zero[0] == 0 or zero[0] == n-1 or zero[1] == 0 or zero[1] == m-1:
-                water.remove(conjunto)
-                break
+        is_border_touching = False
+        for zero in conjunto:
+            # Verifica se o elemento zero está na borda
+            if zero[0] == 0 or zero[0] == n - 1 or zero[1] == 0 or zero[1] == m - 1:
+                is_border_touching = True
+                break  # Interrompe o loop interno se encontrar um zero na borda
+    
+        # Apenas adiciona o conjunto se ele não tocar as bordas
+        if not is_border_touching:
+            lakes.append(conjunto)
+
             
 
     
-    return water
+    return lakes #water carregará apenas os lagos que a matriz tiver, então se estiver vazia não há lagos
 
-# Testando com a matriz
-matriz = [
+if __name__ == "__main__":
+    # Testando com a matriz
+    matriz = [
+        ['1', '1', '1', '1', '1'],
+        ['1', '0', '0', '0', '1'],
+        ['1', '1', '0', '1', '1'],
+        ['0', '1', '0', '0', '1'],
+        ['1', '1', '1', '1', '1'],
+        ['1', '0', '1', '1', '1'],
+        ['1', '0', '1', '0', '1'],
+        ['1', '1', '1', '1', '1']
+    ]
+
+    matri = [
     ['1', '1', '1', '1', '1'],
-    ['1', '0', '0', '0', '1'],
-    ['0', '1', '0', '1', '1'],
-    ['1', '1', '0', '0', '1'],
-    ['1', '1', '1', '1', '1']
+    ['1', '1', '0', '1', '1'],
+    ['1', '1', '1', '1', '0'],
+    ['1', '1', '1', '1', '1'],
+    ['1', '1', '1', '1', '1'],
+    ['1', '0', '0', '0', '0']
 ]
 
-print(find_lake(matriz))
+lakes = find_lake(matri)
+print(lakes)

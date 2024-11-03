@@ -28,13 +28,14 @@ def number_of_islands(matrix):
 
     return count
 
-# Testando com a matriz
-matriz = [
-    ['1', '1', '1', '0', '0'],
-    ['0', '1', '0', '1', '1'],
-    ['1', '0', '0', '1', '1'],
-    ['0', '0', '0', '0', '0'],
-    ['1', '0', '1', '1', '0']
-]
+if __name__ == "__main__":
+    # Testando com a matriz
+    matriz = [
+        ['1', '1', '1', '0', '0'],
+        ['0', '1', '0', '0', '1'],
+        ['1', '0', '0', '1', '1'],
+        ['0', '0', '0', '0', '0'],
+        ['1', '0', '1', '1', '0']
+    ]
 
-print(number_of_islands(matriz))
+    print(number_of_islands(matriz))
