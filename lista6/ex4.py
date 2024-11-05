@@ -1,4 +1,7 @@
-def number_of_islands(matrix):
+import random
+from ler_txt import txt_to_matrix
+
+def island_min_max(matrix):
     def neighbors(index):
         directions = [(1, 0), (-1, 0), (0, 1), (0, -1),(1,1),(1,-1),(-1,1),(-1,-1)]
         neighbors = []
@@ -43,7 +46,7 @@ def number_of_islands(matrix):
 
     ilha_min.sort()
     ilha_max.sort()
-    return ilha_min, ilha_min[len(ilha_min)//2], ilha_max,ilha_max[len(ilha_max)//2]
+    return ilha_min, ilha_max
 
 if __name__ == "__main__":
     # Testando com a matriz
@@ -51,8 +54,11 @@ if __name__ == "__main__":
         ['1', '1', '1', '0', '0'],
         ['0', '1', '0', '0', '1'],
         ['1', '0', '0', '1', '1'],
-        ['0', '0', '0', '0', '0'],
+        ['0', '0', '0', '1', '0'],
         ['1', '0', '1', '1', '0']
     ]
 
-    print(number_of_islands(matriz))
+    matriz = txt_to_matrix("/home/al.igor.alves/Downloads/test_map.txt")
+
+    print(island_min_max(matriz))
+   
