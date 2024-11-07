@@ -6,7 +6,7 @@ from mesa.datacollection import DataCollector
 from mesa import Agent
 from mesa.time import RandomActivation
 import random
-
+#iashduiashdasidhsai
 class TreeCell(Agent):
     """
     A tree cell agent that can be in one of three states:
