@@ -18,6 +18,36 @@ TREE_BURNING_IMG = pygame.transform.scale(TREE_BURNING_IMG, (cell_size, cell_siz
 # Definições de cores
 COLOR_BURNED = (0, 0, 0)    # Preto (árvores queimadas)
 COLOR_WATER = (0, 0, 255)   # Azul (barreiras)
+class vento():
+    def __init__(self,direction=1):
+        lista_directions = ["N","S","L","O","NO","NE","SE","SO"]
+        if direction == 1:
+            direction = random.choice(lista_directions)
+        if direction == "N":
+            self.directions = [(0, 1), (1, 1), (-1, 1)]
+        elif direction == "S":
+            self.directions = [(0, -1), (1, -1), (-1, -1)]
+        elif direction == "L":
+            self.directions = [(1, 0), (1, 1), (1, -1)]
+        elif direction == "O":
+            self.directions = [(-1, 0), (-1, 1), (-1, -1)]
+        elif direction == "NE":
+            self.directions = [(0, 1), (1, 0), (1, 1)]
+        elif direction == "NO":
+            self.directions = [(0, 1), (-1, 0), (-1, 1)]
+        elif direction == "SE":
+            self.directions = [(0, -1), (1, 0), (1, -1)]
+        elif direction == "SO":
+            self.directions = [(0, -1), (-1, 0), (-1, -1)]
+        
+    def neighbors_vento(self,tree,matriz):
+        neighbors = []
+        for dx,dy in self.directions:
+            nx, ny = tree.x + dx, tree.y + dy
+            if 0 <= nx < len(matriz) and 0 <= ny < len(matriz[0]) and isinstance(matriz[nx][ny], Tree):
+                neighbors.append(matriz[nx][ny])
+
+
 
 class Tree:
     def __init__(self, coord):
