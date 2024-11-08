@@ -22,8 +22,8 @@ def print_map(map_p):
 
 if __name__ == '__main__':
     random.seed(10012)
-    m1 = generateMap(50, 10, 0.1, '0', '1')
-    print_map(m1)
+    m1 = generateMap(50, 10)
+    save_map(m1, 'test_map.txt')
 
     m2 = generateMap(100, 120)
-    save_map(m2, 'test_map.txt')
+    #save_map(m2, 'test_map.txt')

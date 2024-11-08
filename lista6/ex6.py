@@ -11,7 +11,7 @@ matriz = txt_to_matrix("lista6/test_map.txt")
 
 # Chamando a função para encontrar os lagos
 lakes = find_lake(matriz)
-print(lakes)
+print(len(lakes))
 
 # Função para imprimir a matriz colorida
 def print_arquip(matrix, lakes):
@@ -23,7 +23,7 @@ def print_arquip(matrix, lakes):
             elif matrix[i][j] == "0":
                 if any((i, j) in sublist for sublist in lakes):
                     # Quadrado azul claro
-                    print(colorama.Back.CYAN + ' ', end='')
+                    print(colorama.Back.RED + ' ', end='')
                 else:
                     # Quadrado azul escuro
                     print(colorama.Back.BLUE + ' ', end='')

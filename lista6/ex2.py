@@ -78,20 +78,9 @@ class grafo():
         x.valor = new_valor
 
 
-def bfs(grafo:grafo, vert_ini:vert) -> list:
-    percorridos = []
-    fila = [vert_ini]
-    while fila:
-        vert_atual = fila.pop(0)
-        if vert_atual not in percorridos:
-            percorridos.append(vert_atual)
-            for i in grafo.neighbors(vert_atual):
-                if i not in percorridos:
-                    fila.append(i)
-    return percorridos
-
         
 def busca_propriedade(grafo:grafo,value) -> vert:
+    #Retornaremos todos os vértices com o valor desejado
     lista_vert = grafo.edge.keys()
     visitados = []
     tops = []
@@ -113,6 +102,12 @@ def busca_propriedade(grafo:grafo,value) -> vert:
 A = vert("A",1)
 B = vert("B",1)
 C = vert("C",0)
-grafo1  = grafo([A,B,C])
+D = vert("D",0)
+E = vert("E",1)
+grafo1  = grafo([A,B,C,D,E])
+grafo1.add_edge(A,B)
+grafo1.add_edge(B,C)
+grafo1.add_edge(C,A)
+grafo1.add_edge(C,E)
 
-print(busca_propriedade(grafo1,0))
+print("Vértices que tem valor 1:\n",busca_propriedade(grafo1,1)) #Esperado [A,B,E]
