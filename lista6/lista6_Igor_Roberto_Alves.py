@@ -399,6 +399,8 @@ def find_lake(matrix):
             (0, 1),
             (0, -1),
         ]  # Apenas 4 direções: cima, baixo, esquerda e direita
+        # Isto porque já consideramos que as ilhas são ligadas pelas diagonais,
+        # Deste jeito as águas não se ligam pela diagonal
         neighbors = []
         for dx, dy in directions:
             x, y = index[0] + dx, index[1] + dy
