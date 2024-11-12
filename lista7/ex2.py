@@ -80,13 +80,39 @@ class grafo:
         x.valor = new_valor
 
 
+def dist(point1, point2):
+    x1, y1 = point1[0], point1[1]
+    x2, y2 = point2[0], point2[1]
+    return ((x2 - x1) ^ 2 + (y2 - y1) ^ 2) ** 1 / 2
+
+
 def minnimun_tree(points):
     Graf = grafo([])
     for i in range(len(points)):
         Graf.add_vertex(vert(f"{i+1}", points[i]))
     print(Graf)
+    for verta in Graf.edge.keys():
+        print(verta.valor)
 
     for i in Graf.edge.keys():
+        min_vertex = float("inf")
+        vertix = None
+        for j in Graf.edge.keys():
+            if dist(i.valor, j.valor) < min_vertex:
+                min_vertex = dist(i.valor, j.valor)
+                vertix = j
+
+        Graf.edge[i] = vertix
+
+def menor_ligacao(points):
+    pass
+def divide_conquis(points):
+    points.sort()
+    if len(points) <= 3:
+        menor_ligacao(points)
+    else:
+        divide_conquis(points[0:len(points)//2])
+        divide_conquis(points[len(points)//2:])
         
 
 
