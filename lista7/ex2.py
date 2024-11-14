@@ -1,5 +1,8 @@
+import copy
+
+
 def dist(p1, p2):
-    return ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 1 / 2
+    return ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** (1 / 2)
 
 
 class vert:
@@ -50,6 +53,20 @@ class grafo_matriz:
         return stri
 
 
+def merge_atualxpriority(atual, priority):
+    if priority:
+        lista = copy.deepcopy(priority)
+        for cell in lista:
+            j = cell[1]
+            for cell2 in atual:
+                if cell2[1] == j and cell2[2] < cell[2]:
+                    cell[0], cell[2] = cell2[0], cell2[2]
+
+        return lista
+    else:
+        return atual
+
+
 def minnimun_spanning_tree(points):
     matriz = []
     for point in points:
@@ -59,36 +76,37 @@ def minnimun_spanning_tree(points):
                 row.append(0)
             else:
                 row.append(dist(point, point2))
-
-        # Definindo a matriz com o peso referente a distância euclidiana
         matriz.append(row)
+        print(row)
 
     num_vert = len(matriz)
     minimal_matriz = [[0 for _ in range(num_vert)] for _ in range(num_vert)]
     priorityqueue = []
     visiteds = set()
-    # Começaremos com o vértice 0, assim adicionado ele nos visitados
     visiteds.add(0)
-    while len(visiteds) < num_vert:  # Enquanto não estão todos ligados
-        for i in range(num_vert):
+
+    for j in range(1, num_vert):
+        priorityqueue.append(
+            [0, j, matriz[0][j]]
+        )  # Todas as ligacoes com o vértice 0 (o vértice inicial)
+
+    while len(visiteds) < num_vert:  # Enquanto nem todos foram interligados
+        priorityqueue.sort(key=lambda x: x[2])  # Ordenando pelo tamanho da aresta
+        p1, p2, size = priorityqueue.pop(0)
+        if p2 not in visiteds:
+            minimal_matriz[p1][p2] = size
+            minimal_matriz[p2][p1] = size
+            visiteds.add(p2)
             for j in range(num_vert):
-                if i != j and j not in visiteds:  # Se j ainda não foi incluído no grafo
-                    priorityqueue.append(
-                        (i, j, matriz[i][j])
-                    )  # Adicionamos ele na fila de prioridade
-            if priorityqueue:
-                priorityqueue.sort(
-                    key=lambda x: x[2]
-                )  # Ordenando a fila de prioridade pela distância de i <-> j
-                position1, position2, value = priorityqueue.pop(0)
-                minimal_matriz[position1][position2] = value
-                visiteds.add(
-                    position2
-                )  # Como foi adicionado uma aresta para j, precisamos contar j como visitado
+                if j not in visiteds:
+                    priorityqueue.append([p2, j, matriz[p2][j]])
 
     return grafo_matriz(minimal_matriz)
 
 
-point = ((1, 0), (0, 1))
+point = ((1, 0), (0, 1), (10, 1), (3, 4))
+print(minnimun_spanning_tree(point))
+
+point = ((1, 0), (0, 1), (10, 1), (3, 4))
 
 print(minnimun_spanning_tree(point))
