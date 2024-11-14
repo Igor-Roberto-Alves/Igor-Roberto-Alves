@@ -132,26 +132,26 @@ def grid_search(f: RealFunction, domain: Interval = None, grid_freq=8) -> Interv
     return Interval(L1[idx], L1[idx + 1])
 
 
-def newton_root(fx, p = None, erro = 1 * 10**-4):
+def newton_root(fx, p=None, erro=1 * 10**-4):
     if p == None:
         print(grid_search(fx))
-        p = bissect(fx,grid_search(fx, fx.domain, 100)).haf
+        p = bissect(fx, grid_search(fx, fx.domain, 100)).haf
         print(p)
-    new_p = p - fx.eval_safe(p)/fx.prime_safe(p)
+    new_p = p - fx.eval_safe(p) / fx.prime_safe(p)
     if abs(fx(new_p)) <= erro:
         return new_p
     else:
-        return newton_root(fx,new_p)
+        return newton_root(fx, new_p)
 
 
 if __name__ == "__main__":
+
     class funcTest(RealFunction):
-        f = lambda self, x: np.power(x, 4) - 2
-        prime = lambda self, x: 4* x**3
+        f = lambda self, x: np.power(x, 4) - 100
+        prime = lambda self, x: 4 * x**3
         domain = Interval(-100, 100)
 
     ft = funcTest()
     # print(grid_search(ft))
     # print(ft.eval_safe(0))
     print(newton_root(ft))
-
