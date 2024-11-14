@@ -79,6 +79,7 @@ class grafo:
 
 
 def find_judge(n, t):
+    # Inicializando um grafo com n vértices e fazendo as devidas ligações
     Graf = grafo([])
     lista_v = []
     for i in range(n):
@@ -89,20 +90,22 @@ def find_judge(n, t):
         Graf.add_edge(lista_v[lig[0] - 1], lista_v[lig[1] - 1])
     print(Graf)
 
+    # Definiremos os possíveis juízes vendo quais pessoas não confiam em ninguém
     possible_judge = []
     for i in lista_v:
         if not Graf.neighbors(i):
             possible_judge.append(i)
 
+    # Definido os possíveis juízes, podemos agora observar em qual deles a população inteira confia
     for i in possible_judge:
         judge = True
         for j in lista_v:
             if j != i:
                 if i not in Graf.neighbors(j):
                     judge = False
-        if judge:
+        if judge:  # Caso existir esse juíz ele será retornado
             return i
-
+    # Caso não, retorna -1
     return -1
 
 
