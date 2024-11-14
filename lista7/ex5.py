@@ -1,8 +1,7 @@
-import scipy.interpolate as scp
-
 # Python 3
 import numpy as np
-import scipy.interpolate
+import scipy.interpolate as scp
+import time
 
 
 class interpolater:
@@ -16,10 +15,11 @@ class interpolater:
 
 class Lagrange(interpolater):
     def __init__(self, array_x, array_y):
-        self.polinom = scipy.interpolate.lagrange(array_x, array_y)
+        self.polinom = scp.lagrange(array_x, array_y)
 
     def evaluate(self, x):
         return self.polinom(x)
+
 
 
 class VandermondeMatrix(interpolater):
@@ -47,7 +47,7 @@ class VandermondeMatrix(interpolater):
 
 def random_sample(intv, N):
     r = np.random.uniform(intv[0], intv[1], N - 2)
-    r.sort()
+    
     return np.array([intv[0]] + list(r) + [intv[1]])
 
 
@@ -62,9 +62,16 @@ if __name__ == "__main__":
 
     DataX = [10.7, 11.075, 11.45, 11.825, 12.2, 12.5]
     DataY = [-0.25991903, 0.04625002, 0.16592075, 0.13048074, 0.13902777, 0.2]
-
+    DataX = random_sample([1,100000],21)
+    DataY = random_sample([1,5000],21)
+    t1 = time.time()
+    Pl = Lagrange(DataX, DataY)
+    t2 = time.time()
+    print(t2-t1)
+    t1 =time.time()
     Pvm = VandermondeMatrix(DataX, DataY)
-
+    t2 = time.time()
+    print(t2-t1)
     X = np.linspace(min(DataX) - 0.2, max(DataX) + 0.2, 100)
     Y = Pvm(X)
 
@@ -72,7 +79,8 @@ if __name__ == "__main__":
     ax.plot(X, Y)
     ax.axis("equal")
     ax.plot(DataX, DataY, "o")
-    plt.show()
+    # plt.show()
 
-    Pl = Lagrange(DataX, DataY)
-    print(Pl.evaluate(11.2))
+
+# print(Pl.polinom)
+# print(Pl.evaluate(11.2))
