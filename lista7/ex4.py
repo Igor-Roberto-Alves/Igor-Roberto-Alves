@@ -126,7 +126,6 @@ def grid_search(f: RealFunction, domain: Interval = None, grid_freq=8) -> Interv
     FL1 = f(L1)
     TI = FL1[:-1] * FL1[1:]
     VI = TI <= 0
-    print(VI)
     if not np.any(VI):
         return None
     idx = np.argmax(VI)
