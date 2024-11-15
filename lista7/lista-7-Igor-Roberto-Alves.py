@@ -91,7 +91,6 @@ def find_judge(n, t):
         lista_v.append(vertex)
     for lig in t:
         Graf.add_edge(lista_v[lig[0] - 1], lista_v[lig[1] - 1])
-    print(Graf)
 
     # Definiremos os possíveis juízes vendo quais pessoas não confiam em ninguém
     possible_judge = []
@@ -115,9 +114,17 @@ def find_judge(n, t):
 lig = [[1, 3], [2, 1], [2, 3]]
 print("O juiz é a pessoa: ", find_judge(3, lig))
 
+lig2 = [[1, 3], [2, 3], [4, 3], [3, 1]]
+if find_judge(4, lig2) != -1:
+    print("O juiz é a pessoa ", find_judge(4, lig2))
+else:
+    print("Não há juiz :(")
+
 # Questão 2 =======================================================================================
 
 import copy
+
+# Letra a) ----
 
 
 def dist(p1, p2):
@@ -172,20 +179,6 @@ class grafo_matriz:
         return stri
 
 
-def merge_atualxpriority(atual, priority):
-    if priority:
-        lista = copy.deepcopy(priority)
-        for cell in lista:
-            j = cell[1]
-            for cell2 in atual:
-                if cell2[1] == j and cell2[2] < cell[2]:
-                    cell[0], cell[2] = cell2[0], cell2[2]
-
-        return lista
-    else:
-        return atual
-
-
 # Utilizei o algoritmo de Prim!
 def minnimun_spanning_tree(points):
     matriz = []
@@ -197,7 +190,6 @@ def minnimun_spanning_tree(points):
             else:
                 row.append(dist(point, point2))
         matriz.append(row)
-        print(row)
 
     num_vert = len(matriz)
     minimal_matriz = [[0 for _ in range(num_vert)] for _ in range(num_vert)]
@@ -214,7 +206,9 @@ def minnimun_spanning_tree(points):
         priorityqueue.sort(key=lambda x: x[2])  # Ordenando pelo tamanho da aresta
         p1, p2, size = priorityqueue.pop(0)
         if p2 not in visiteds:
-            minimal_matriz[p1][p2] = size
+            minimal_matriz[p1][
+                p2
+            ] = size  # Como o grafo é não orientado, adicionamos a aresta nos dois sentidos
             minimal_matriz[p2][p1] = size
             visiteds.add(p2)
             for j in range(num_vert):
@@ -227,9 +221,28 @@ def minnimun_spanning_tree(points):
 point = ((1, 0), (0, 1), (10, 1), (3, 4))
 print(minnimun_spanning_tree(point))
 
-point = ((1, 0), (0, 1), (10, 1), (3, 4))
+points = ((0, 0), (1, 0), (2, 0), (3, 0))
+mst = minnimun_spanning_tree(points)
+print(mst)
 
-print(minnimun_spanning_tree(point))
+# letra b) ----
+"""
+Para encontrar as arestas para MST, temos que ordenar todas as arestas e escolher as menores
+que ainda deixam o grafo conexo, logo temos uma cota inferior O(nlogn) da ordenação das arestas.
+
+Agora basta encontrar algum algoritmo que resolva Minnimun spanning tree em nlogn
+assim o problema será teta(nlogn)
+
+Este algoritmo existe e é o que utiliza triangulaçao de Delaunay para encontrar as arestas,
+deste jeito Minnimun Spanning Tree é teta(nlogn)
+"""
+
+# letra c) ----
+"""
+O algoritmo de prim não é ótimo,
+e a minha versão em complexidade é pior, já que só para gerar a matriz dado os pontos
+temos n^2 operações, e a minha fila de prioridade não está implementada da melhor maneira
+"""
 
 # Questão 3 ================================================================================================
 import copy
@@ -241,6 +254,7 @@ x_fx = ([15, 200], [9, 400], [5, 600], [3, 800], [-2, 1000], [-5, 1200], [-15, 1
 def lagrange(
     x_fx, alvo, invert=False
 ):  # Carregaremos invert, que caso for True => que queremos a relação altura x grau
+    # Fórmula vista em aula
     sum = 0
 
     x_fx = copy.deepcopy(x_fx)
@@ -259,14 +273,16 @@ def lagrange(
     return sum
 
 
-print("A altura em que o avião alcança 0 graus Celsius é: ", lagrange(x_fx, 0))
+print(
+    "A altura em que o avião alcança 0 graus Celsius é: ", lagrange(x_fx, 0), "metros"
+)
 print(
     "\nA temperatura que provavelmente o avião estava a 700 metros é: ",
     lagrange(x_fx, 700, True),
+    "graus",
 )
 
 # Questão 4 ===============================================================================================
-# python 3
 
 from typing import Any
 import numpy as np
@@ -400,8 +416,11 @@ def grid_search(f: RealFunction, domain: Interval = None, grid_freq=8) -> Interv
 
 
 def newton_root(
-    fx, p=None, erro=1 * 10 ** (-4)
+    fx, p=None, erro=1 * 10 ** (-4), iter=0, max_iter=1000
 ):  # A tolerância para nossa raiz será de 1*10**(-4)
+    iter += 1
+    if iter >= max_iter:
+        raise RuntimeError("O máximo de iterações foi alcançado.")
     if p == None:
         p = bissect(fx, grid_search(fx, fx.domain, 100)).haf
     new_p = p - fx.eval_safe(p) / fx.prime_safe(p)  # Expansão do polinômio de taylor
@@ -409,20 +428,34 @@ def newton_root(
         return new_p
     else:
         newton_root(
-            fx, new_p
+            fx, new_p, iter
         )  # Recursivamente chama newton_root com o ponto definido ao cruzar o eixo x
 
 
 if __name__ == "__main__":
-
+    # gerando funções utilizando RealFunction
     class funcTest(RealFunction):
         f = lambda self, x: np.power(x, 4) - 100
         prime = lambda self, x: 4 * x**3
         domain = Interval(-100, 100)
 
+    class funcTest2(RealFunction):
+        f = lambda self, x: np.power(x, 7) - 1
+        prime = lambda self, x: 7 * (x**6)
+        domain = Interval(-10, 10)
+
     ft = funcTest()
-    # print(ft.eval_safe(0))
-    print(newton_root(ft))
+    print("\n", newton_root(ft))
+    # Grid search me retornará caso possível, um intervalo que contém um x com f(X) negativo e um x2 com f(x2) positivo
+    print(grid_search(ft, ft.domain, 100))
+    # Já bissect tornará esse intervalo menor ainda (mantendo um extremo negativo e outro positivo), assim,
+    # podemos usar bissect para escolher o ponto em que Começamos o método de newton
+    print(bissect(ft, grid_search(ft, ft.domain, 100)))
+    # Teste com outra função
+    fx = funcTest2()
+    print("\n", newton_root(fx))
+    print(grid_search(fx, fx.domain, 100))
+    print(bissect(fx, grid_search(fx, fx.domain, 100)))
 
 # Questão 5 ==================================================================================================
 
@@ -475,7 +508,6 @@ class VandermondeMatrix(interpolater):
 
 def random_sample(intv, N):
     r = np.random.uniform(intv[0], intv[1], N - 2)
-
     return np.array([intv[0]] + list(r) + [intv[1]])
 
 
@@ -486,17 +518,22 @@ def error_pol(f, P, intv, n=1000):
 
 
 if __name__ == "__main__":
-    import matplotlib.pyplot as plt
-
     DataX = [10.7, 11.075, 11.45, 11.825, 12.2, 12.5]
     DataY = [-0.25991903, 0.04625002, 0.16592075, 0.13048074, 0.13902777, 0.2]
 
+    # Comparação de desempenho
     t1 = time.time()
     Pl = Lagrange(DataX, DataY)
-    print("Polinômio de Lagrange:\n ", Pl.polinom)
     t2 = time.time()
-    print("tempo para formar o polinômio de lagrange: ", t2 - t1)
+    print("Tempo para polinômio de Lagrange:", t2 - t1, "s")
+
     t1 = time.time()
     Pvm = VandermondeMatrix(DataX, DataY)
     t2 = time.time()
-    print("tempo para formar o polinômio de Vandermonte: ", t2 - t1)
+    print("Tempo para polinômio de Vandermonde:", t2 - t1, "s")
+
+    """
+    Podemos ver que Vandemonde é calculado mais rápido, talve isso se dê
+    pela função scp.lagrange() fazer coisas a mais, como gerar um __str__,
+    ou pela otimização de operações matriciais, que agiliza o calculo da matriz de Vandermonde
+    """
