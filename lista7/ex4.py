@@ -136,7 +136,6 @@ def newton_root(fx, p=None, erro=1 * 10**-4):
     if p == None:
         print(grid_search(fx))
         p = bissect(fx, grid_search(fx, fx.domain, 100)).haf
-        print(p)
     new_p = p - fx.eval_safe(p) / fx.prime_safe(p)
     if abs(fx(new_p)) <= erro:
         return new_p
