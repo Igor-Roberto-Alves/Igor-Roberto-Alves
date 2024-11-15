@@ -518,19 +518,79 @@ def error_pol(f, P, intv, n=1000):
 
 
 if __name__ == "__main__":
-    DataX = [10.7, 11.075, 11.45, 11.825, 12.2, 12.5]
-    DataY = [-0.25991903, 0.04625002, 0.16592075, 0.13048074, 0.13902777, 0.2]
+    DataX = [
+        10.7,
+        11.075,
+        11.45,
+        11.825,
+        12.2,
+        12.5,
+        12.7,
+        13,
+        13.4,
+        13.6,
+        14,
+        14.4,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+    ]
+    DataY = [
+        -0.25991903,
+        0.04625002,
+        0.16592075,
+        0.13048074,
+        0.13902777,
+        0.2,
+        0.22,
+        0.25,
+        0.3,
+        0.37,
+        0.4,
+        0.42,
+        0.44,
+        0.47,
+        0.52,
+        0.56,
+        0.6,
+        0.66,
+        0.72,
+        0.75,
+        0.8,
+        0.83,
+        0.86,
+        0.9,
+        0.94,
+        0.97,
+        1.02,
+        1.08,
+    ]
 
     # Comparação de desempenho
     t1 = time.time()
     Pl = Lagrange(DataX, DataY)
     t2 = time.time()
     print("Tempo para polinômio de Lagrange:", t2 - t1, "s")
+    # Na minha máquina  -> 0.02419 segundos
 
     t1 = time.time()
     Pvm = VandermondeMatrix(DataX, DataY)
     t2 = time.time()
     print("Tempo para polinômio de Vandermonde:", t2 - t1, "s")
+    # Na minha máquina -> 0.0006 segundos
 
     """
     Podemos ver que Vandemonde é calculado mais rápido, talve isso se dê
