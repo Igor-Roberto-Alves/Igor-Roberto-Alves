@@ -418,7 +418,7 @@ def grid_search(f: RealFunction, domain: Interval = None, grid_freq=8) -> Interv
 def newton_root(
     fx, p=None, erro=1 * 10 ** (-4), iter=0, max_iter=1000
 ):  # A tolerância para nossa raiz será de 1*10**(-4)
-    iter += 1
+    iter += 1  # Número máximo de iterações é 1000, ao passar disso da RuntimeError
     if iter >= max_iter:
         raise RuntimeError("O máximo de iterações foi alcançado.")
     if p == None:
