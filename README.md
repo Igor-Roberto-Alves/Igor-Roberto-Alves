@@ -13,7 +13,7 @@ $$\text{Machine Learning | Computer Vision | IMPA-Tech}$$
 
 In this project I'm working with Shapenet dataset to construct a generative model that can create 3D meshes of objects. The main goal is to be able to generate new 3D models that can be used in various applications, such as virtual reality, gaming, and computer-aided design.
 
-Repository Link: [3D Mesh gen](https://github.com/Igor-Roberto-Alves/3D-Mesh-gen)
+Repository Link: [3D Mesh gen](https://github.com/Igor-Roberto-Alves/3D_MeshGen)
 
 
 -----------------------------------------------
