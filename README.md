@@ -25,11 +25,10 @@ Repository Link: [3D Mesh gen](https://github.com/Igor-Roberto-Alves/3D-Mesh-gen
 ## My stats
 <div align="center">
 
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=Igor-Roberto-Alves&theme=dracula)
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=Igor-Roberto-Alves&theme=blueberry)
 
-<img src="https://github-readme-stats-rhythm.vercel.app/api?username=Igor-Roberto-Alves&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false&order=1" height="150" alt="stats graph" />
 
-<img src="https://github-readme-stats-rhythm.vercel.app/api/top-langs?username=Igor-Roberto-Alves&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=6&theme=dracula&hide_border=false&order=2" height="150" alt="languages graph" />
+<img src="https://github-readme-stats-rhythm.vercel.app/api/top-langs?username=Igor-Roberto-Alves&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=6&theme=blueberry&hide_border=false&order=2" height="150" alt="languages graph" />
 </div>
 
 
